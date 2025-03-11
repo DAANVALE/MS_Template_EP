@@ -29,6 +29,10 @@ public class TerraceType
     @Column(name = "killed")
     private Byte killed = 0;
 
+    public Integer getId() {
+        return id;
+    }
+
     public void setKilled(Byte killed) {
         this.killed = killed;
     }

@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "template")
@@ -33,14 +34,10 @@ public class Template
     @JoinColumn(name = "idTerraceType", nullable = false)
     private TerraceType terraceType;
 
-    @ManyToMany
-    @JoinTable(
-            name = "template_servicetype", // Nombre de la tabla intermedia
-            joinColumns = @JoinColumn(name = "template_id"), // Clave de Service
-            inverseJoinColumns = @JoinColumn(name = "servicetype_id") // Clave de ServiceType
-    )
-    @JsonProperty("idServiceType")
-    private List<ServiceType> serviceType;
+    @JsonProperty("serviceType")
+    @ManyToMany(targetEntity = ServiceType.class,
+            cascade = CascadeType.ALL )
+    private Set<ServiceType> serviceType;
 
     // Data
     @JsonProperty("name")

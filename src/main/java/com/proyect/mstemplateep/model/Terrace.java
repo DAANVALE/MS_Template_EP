@@ -10,6 +10,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "terrace", uniqueConstraints = {@UniqueConstraint(columnNames = "idTerrace_DB")})
@@ -24,17 +25,14 @@ public class Terrace
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @ManyToMany
-    @JoinTable(
-            name = "terrace_terracetype", // Nombre de la tabla intermedia
-            joinColumns = @JoinColumn(name = "terrace_id"), // Clave de Service
-            inverseJoinColumns = @JoinColumn(name = "terracetype_id") // Clave de ServiceType
-    )
-    private List<TerraceType> terraceType;
+    @JsonProperty("terraceType")
+    @ManyToMany(targetEntity = TerraceType.class,
+            cascade = CascadeType.ALL )
+    private Set<TerraceType> terraceType;
 
     // ID Service BD
     @JsonProperty("idTerrace_DB")
-    @Column(name = "idTerrace_DB", nullable = false, unique = true)
+    @Column(name = "idTerrace_DB", nullable = false)
     private Integer idTerrace_DB;
 
     @JsonProperty("idAsociate_DB")
@@ -62,4 +60,12 @@ public class Terrace
     @JsonProperty("place")
     @Column(name = "place", nullable = false)
     private String place;
+
+    public Set<TerraceType> getTerraceType() {
+        return terraceType;
+    }
+
+    public void setTerraceType(Set<TerraceType> terraceType) {
+        this.terraceType = terraceType;
+    }
 }

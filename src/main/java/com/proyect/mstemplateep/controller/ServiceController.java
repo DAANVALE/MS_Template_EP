@@ -37,11 +37,11 @@ public class ServiceController {
             @RequestParam(defaultValue = "0") Integer page,
             @RequestParam(defaultValue = "10") Integer size){
 
-        Page<ServiceModel> Services = serviceService.getAllServices(page, size);
-        return ResponseEntity.ok(Services);
+        Page<ServiceModel> services = serviceService.getAllServices(page, size);
+        return ResponseEntity.ok(services);
     }
 
-    @GetMapping("/ServiceType")
+    @GetMapping("/ServiceType/{serviceTypeId}")
     public ResponseEntity<Page<ServiceModel>> getAllServiceTypes(
             @PathVariable Integer serviceTypeId,
             @RequestParam(defaultValue = "0") Integer page,
@@ -49,14 +49,14 @@ public class ServiceController {
 
         ServiceType serviceType = serviceTypeService.getServiceTypeById(serviceTypeId).orElseThrow();
 
-        Page<ServiceModel> Services = serviceService.findByServiceType(page, size,serviceType);
-        return ResponseEntity.ok(Services);
+        Page<ServiceModel> services = serviceService.findByServiceType(page, size,serviceType);
+        return ResponseEntity.ok(services);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ServiceModel> getServiceById(@PathVariable Integer id) {
-        Optional<ServiceModel> Service = serviceService.findById(id);
-        return Service.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        Optional<ServiceModel> service = serviceService.findById(id);
+        return service.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
@@ -80,7 +80,7 @@ public class ServiceController {
         }
     }
 
-    @DeleteMapping("/id")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteServiceById(@PathVariable Integer id) {
         serviceService.deleteById(id);
         return ResponseEntity.noContent().build();

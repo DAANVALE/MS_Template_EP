@@ -39,6 +39,12 @@ public class ServiceType
             fetch = FetchType.LAZY)
     private Set<ServiceModel> serviceModels;
 
+    @ManyToMany(targetEntity = ServiceModel.class,
+            mappedBy = "serviceType",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY)
+    private Set<Template> template;
+
     public Integer getId() {
         return id;
     }
