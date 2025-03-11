@@ -6,9 +6,10 @@ import com.proyect.mstemplateep.repository.ServiceRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,12 +23,12 @@ public class ServiceService {
         this.serviceRepo = serviceRepository;
     }
 
-    public Page<ServiceModel> getAllServices(int page, int size){
+    public Page<ServiceModel> getAllServices(Integer page, Integer size){
         return serviceRepo.findAll(PageRequest.of(page, size));
     }
 
-    public Page<ServiceModel> findByServiceType(int page, int size, ServiceType service){
-        return serviceRepo.findByServiceType(service, PageRequest.of(page, size));
+    public Page<ServiceModel> findByServiceType(Integer page, Integer size, ServiceType serviceType){
+        return serviceRepo.findByServiceType(serviceType, PageRequest.of(page, size));
     }
 
     public Optional<ServiceModel> findById(Integer id){
@@ -38,7 +39,14 @@ public class ServiceService {
         return serviceRepo.save(serviceModel);
     }
 
-    public void deleteServiceModel(ServiceModel serviceModel){
-        serviceRepo.delete(serviceModel);
+    public void deleteById(Integer id){
+        if (serviceRepo.existsById(id)) {
+            serviceRepo.deleteById(id);
+            if (serviceRepo.existsById(id)) {
+                throw new RuntimeException("Error al eliminar el servicio");
+            }
+        } else {
+            throw new ResourceNotFoundException("Service not found with id " + id);
+        }
     }
 }

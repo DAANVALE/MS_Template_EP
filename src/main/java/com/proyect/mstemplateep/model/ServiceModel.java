@@ -1,5 +1,6 @@
 package com.proyect.mstemplateep.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -9,6 +10,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "service", uniqueConstraints = {@UniqueConstraint(columnNames = "idService_DB")})
@@ -23,14 +25,10 @@ public class ServiceModel
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @ManyToMany
-    @JoinTable(
-            name = "service_servicetype", // Nombre de la tabla intermedia
-            joinColumns = @JoinColumn(name = "service_id"), // Clave de Service
-            inverseJoinColumns = @JoinColumn(name = "service_type_id") // Clave de ServiceType
-    )
-    @JsonProperty("idServiceType")
-    private List<ServiceType> serviceType;
+    @JsonProperty("serviceType")
+    @ManyToMany(targetEntity = ServiceType.class,
+            cascade = CascadeType.ALL )
+    private Set<ServiceType> serviceType;
 
     // ID Service BD
     @JsonProperty("idService_DB")
@@ -62,4 +60,12 @@ public class ServiceModel
     @JsonProperty("place")
     @Column(name = "place", nullable = false)
     private String place;
+
+    public Set<ServiceType> getServiceType() {
+        return serviceType;
+    }
+
+    public void setServiceType(Set<ServiceType> serviceType) {
+        this.serviceType = serviceType;
+    }
 }
