@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "event_type")
 @NoArgsConstructor
@@ -33,4 +35,12 @@ public class EventType
     public void setKilled(Byte killed) {
         this.killed = killed;
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    @OneToMany(mappedBy = "eventType", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // Evita loops infinitos en JSON
+    private Set<Template> templates;
 }

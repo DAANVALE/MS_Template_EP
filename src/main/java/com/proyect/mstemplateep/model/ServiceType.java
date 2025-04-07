@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.nio.channels.FileChannel;
 import java.util.List;
 import java.util.Set;
 
@@ -39,11 +40,11 @@ public class ServiceType
             fetch = FetchType.LAZY)
     private Set<ServiceModel> serviceModels;
 
-    @ManyToMany(targetEntity = ServiceModel.class,
+    @ManyToMany(targetEntity = Template.class,
             mappedBy = "serviceType",
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
-    private Set<Template> template;
+    private Set<Template> templates;
 
     public Integer getId() {
         return id;

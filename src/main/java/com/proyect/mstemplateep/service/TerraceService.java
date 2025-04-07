@@ -8,6 +8,7 @@ import com.proyect.mstemplateep.repository.TerraceRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -24,12 +25,12 @@ public class TerraceService {
         this.terraceRepo = terraceRepository;
     }
 
-    public Page<Terrace> getAllTerraces(Integer page, Integer size){
-        return terraceRepo.findAll(PageRequest.of(page, size));
+    public Page<Terrace> getAllTerraces(Pageable pageable){
+        return terraceRepo.findAll(pageable);
     }
 
-    public Page<Terrace> findByTerraceType(Integer page, Integer size, TerraceType terraceType){
-        return terraceRepo.findByTerraceType(terraceType, PageRequest.of(page, size));
+    public Page<Terrace> findByTerraceType(Pageable pageable, TerraceType terraceType){
+        return terraceRepo.findByTerraceType(terraceType, pageable);
     }
 
     public Optional<Terrace> findById(Integer id){

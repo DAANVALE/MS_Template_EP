@@ -30,6 +30,11 @@ public class ServiceModel
             cascade = CascadeType.ALL )
     private Set<ServiceType> serviceType;
 
+    @JsonProperty("cityModel")
+    @ManyToMany(targetEntity = CityModel.class,
+            cascade = CascadeType.ALL )
+    private Set<CityModel> cityModel;
+
     // ID Service BD
     @JsonProperty("idService_DB")
     @Column(name = "idService_DB", nullable = false)
@@ -67,5 +72,13 @@ public class ServiceModel
 
     public void setServiceType(Set<ServiceType> serviceType) {
         this.serviceType = serviceType;
+    }
+
+    public Set<CityModel> getCityModel() {
+        return cityModel;
+    }
+
+    public void setCityModel(Set<CityModel> cityModel) {
+        this.cityModel = cityModel;
     }
 }

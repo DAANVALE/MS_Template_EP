@@ -1,8 +1,10 @@
 package com.proyect.mstemplateep.controller;
 
+import com.proyect.mstemplateep.model.CityModel;
 import com.proyect.mstemplateep.model.ServiceModel;
 import com.proyect.mstemplateep.model.ServiceType;
 import com.proyect.mstemplateep.repository.ServiceTypeRepo;
+import com.proyect.mstemplateep.service.CityService;
 import com.proyect.mstemplateep.service.ServiceService;
 import com.proyect.mstemplateep.service.ServiceTypeService;
 import lombok.experimental.Delegate;
@@ -27,9 +29,13 @@ public class ServiceController {
     private final ServiceTypeService serviceTypeService;
 
     @Autowired
-    public ServiceController(ServiceService serviceService, ServiceTypeService serviceTypeRepo) {
+    private final CityService cityService;
+
+    @Autowired
+    public ServiceController(ServiceService serviceService, ServiceTypeService serviceTypeRepo, CityService cityService) {
         this.serviceService = serviceService;
         this.serviceTypeService = serviceTypeRepo;
+        this.cityService = cityService;
     }
 
     @GetMapping
@@ -68,8 +74,16 @@ public class ServiceController {
                             .orElseThrow(() -> new RuntimeException("ServiceType not found")))
                     .collect(Collectors.toSet());  // Usamos collect(toSet()) para evitar duplicados
 
+            Set<CityModel> cityModels = serviceModel.getCityModel().stream()
+                    .map(cityType -> cityService.getCityById(cityType.getId())  // Aquí usamos el ID directamente
+                            .orElseThrow(() -> new RuntimeException("City not found")))
+                    .collect(Collectors.toSet());  // Usamos collect(toSet()) para evitar duplicados
+
+
             // Asocia los ServiceTypes al ServiceModel
             serviceModel.setServiceType(serviceTypes);
+            serviceModel.setCityModel(cityModels);
+
 
             // Guarda el ServiceModel
             ServiceModel savedService = serviceService.saveServiceModel(serviceModel);

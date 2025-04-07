@@ -30,6 +30,11 @@ public class Terrace
             cascade = CascadeType.ALL )
     private Set<TerraceType> terraceType;
 
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @JoinColumn(name = "cityModel", nullable = false)
+    @JsonProperty("cityModel")
+    private CityModel cityModel;
+
     // ID Service BD
     @JsonProperty("idTerrace_DB")
     @Column(name = "idTerrace_DB", nullable = false)
@@ -67,5 +72,13 @@ public class Terrace
 
     public void setTerraceType(Set<TerraceType> terraceType) {
         this.terraceType = terraceType;
+    }
+
+    public CityModel getCityModel() {
+        return cityModel;
+    }
+
+    public void setCityModel(CityModel cityModel) {
+        this.cityModel = cityModel;
     }
 }

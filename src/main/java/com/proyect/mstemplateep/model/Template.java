@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -25,14 +24,19 @@ public class Template
     private Integer id;
 
     @ManyToOne(optional = false)
-    @JsonProperty("idEventType")
-    @JoinColumn(name = "idEventType", nullable = false)
+    @JsonProperty("eventType")
+    @JoinColumn(name = "eventType", nullable = false)
     private EventType eventType;
 
-    @JsonProperty("idTerraceType")
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "idTerraceType", nullable = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @JoinColumn(name = "terraceType", nullable = false)
+    @JsonProperty("terraceType")
     private TerraceType terraceType;
+
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @JoinColumn(name = "cityModel", nullable = false)
+    @JsonProperty("cityModel")
+    private CityModel cityModel;
 
     @JsonProperty("serviceType")
     @ManyToMany(targetEntity = ServiceType.class,
@@ -47,4 +51,36 @@ public class Template
     @JsonProperty("description")
     @Column(name = "description")
     private String description;
+
+    public Set<ServiceType> getServiceType() {
+        return serviceType;
+    }
+
+    public void setServiceType(Set<ServiceType> serviceType) {
+        this.serviceType = serviceType;
+    }
+
+    public EventType getEventType() {
+        return eventType;
+    }
+
+    public void setEventType(EventType eventType) {
+        this.eventType = eventType;
+    }
+
+    public TerraceType getTerraceType() {
+        return terraceType;
+    }
+
+    public void setTerraceType(TerraceType terraceType) {
+        this.terraceType = terraceType;
+    }
+
+    public CityModel getCityModel() {
+        return cityModel;
+    }
+
+    public void setCityModel(CityModel cityModel) {
+        this.cityModel = cityModel;
+    }
 }

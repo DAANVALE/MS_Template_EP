@@ -35,11 +35,7 @@ public class ServiceTypeController {
 
     @PostMapping
     public ResponseEntity<ServiceType> createService(@RequestBody ServiceType serviceType) {
-        try {
-            ServiceType savedService = serviceTypeService.saveServiceType(serviceType);
-            return ResponseEntity.ok(savedService);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
-        }
+        ServiceType savedService = serviceTypeService.saveServiceType(serviceType);
+        return ResponseEntity.ok(savedService);
     }
 }

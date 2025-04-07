@@ -40,6 +40,8 @@ public class ServiceService {
     }
 
     public void deleteById(Integer id){
+
+        // TODO: Also it must to delete the data from
         if (serviceRepo.existsById(id)) {
             serviceRepo.deleteById(id);
             if (serviceRepo.existsById(id)) {
