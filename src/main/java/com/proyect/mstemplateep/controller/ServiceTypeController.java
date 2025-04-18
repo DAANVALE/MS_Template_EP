@@ -28,7 +28,7 @@ public class ServiceTypeController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ServiceType> getserviceTypeById(@PathVariable Integer id) {
+    public ResponseEntity<ServiceType> getServiceTypeById(@PathVariable Integer id) {
         Optional<ServiceType> serviceType = serviceTypeService.getServiceTypeById(id);
         return serviceType.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
