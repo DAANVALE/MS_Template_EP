@@ -45,9 +45,14 @@ public class ServiceModel
     private Integer idAsociate_DB;
 
     // Images Repository
+    @ElementCollection
+    @CollectionTable(
+            name = "service_images",
+            joinColumns = @JoinColumn(name = "id") // Este debe coincidir con la PK de ServiceModel
+    )
+    @Column(name = "image_url")
     @JsonProperty("URL_Img")
-    @Column(name = "URL_Img", nullable = false)
-    private String URL_Img;
+    private Set<String> URL_Img;
 
     // Data
     @JsonProperty("name")
@@ -61,10 +66,6 @@ public class ServiceModel
     @JsonProperty("price")
     @Column(name = "price", nullable = false)
     private BigDecimal price;
-
-    @JsonProperty("place")
-    @Column(name = "place", nullable = false)
-    private String place;
 
     public Set<ServiceType> getServiceType() {
         return serviceType;
@@ -80,5 +81,17 @@ public class ServiceModel
 
     public void setCityModel(Set<CityModel> cityModel) {
         this.cityModel = cityModel;
+    }
+
+    public void setURL_Img(Set<String> URL_Img) {
+        this.URL_Img = URL_Img;
+    }
+
+    public Set<String> getURL_Img() {
+        return URL_Img;
+    }
+
+    public Integer getId() {
+        return id;
     }
 }

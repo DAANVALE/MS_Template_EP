@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -45,9 +46,14 @@ public class Terrace
     private Integer idAsociate_DB;
 
     // Image Repository
+    @ElementCollection
+    @CollectionTable(
+            name = "terrace_images",
+            joinColumns = @JoinColumn(name = "id") // Este debe coincidir con el nombre real de tu PK
+    )
+    @Column(name = "image_url")
     @JsonProperty("URL_Img")
-    @Column(name = "URL_Img", nullable = false)
-    private String URL_Img;
+    private List<String> URL_Img;
 
     // Data
     @JsonProperty("name")
@@ -81,4 +87,5 @@ public class Terrace
     public void setCityModel(CityModel cityModel) {
         this.cityModel = cityModel;
     }
+
 }

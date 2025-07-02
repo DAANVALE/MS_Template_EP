@@ -59,7 +59,7 @@ public class TemplateController {
         return template.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @GetMapping("EventType/{eventTypeId}")
+    @GetMapping("/EventType/{eventTypeId}")
     public ResponseEntity<Page<Template>> getTemplateByEventType(
             @PathVariable Integer eventTypeId,
             @RequestParam(defaultValue = "0") Integer page,
