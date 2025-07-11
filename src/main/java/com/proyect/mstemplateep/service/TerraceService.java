@@ -1,13 +1,10 @@
 package com.proyect.mstemplateep.service;
 
-import com.proyect.mstemplateep.model.Template;
-import com.proyect.mstemplateep.model.ServiceType;
 import com.proyect.mstemplateep.model.Terrace;
 import com.proyect.mstemplateep.model.TerraceType;
 import com.proyect.mstemplateep.repository.TerraceRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;

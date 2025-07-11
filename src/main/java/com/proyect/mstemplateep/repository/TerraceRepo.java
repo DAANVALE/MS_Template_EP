@@ -11,7 +11,6 @@ import java.util.Optional;
 
 @Repository
 public interface TerraceRepo extends JpaRepository<Terrace,Integer>{
-
     Optional<Terrace> findById(Integer id);
     Page<Terrace> findByTerraceType(TerraceType serviceType, Pageable pageable);
 }

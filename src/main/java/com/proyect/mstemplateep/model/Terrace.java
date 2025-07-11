@@ -53,7 +53,7 @@ public class Terrace
     )
     @Column(name = "image_url")
     @JsonProperty("URL_Img")
-    private List<String> URL_Img;
+    private Set<String> URL_Img;
 
     // Data
     @JsonProperty("name")
@@ -86,6 +86,14 @@ public class Terrace
 
     public void setCityModel(CityModel cityModel) {
         this.cityModel = cityModel;
+    }
+
+    public void setURL_Img(Set<String> URL_Img) {
+        this.URL_Img = URL_Img;
+    }
+
+    public Set<String> getURL_Img() {
+        return URL_Img;
     }
 
 }

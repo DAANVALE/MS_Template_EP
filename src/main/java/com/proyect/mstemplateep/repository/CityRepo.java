@@ -1,7 +1,6 @@
 package com.proyect.mstemplateep.repository;
 
 import com.proyect.mstemplateep.model.CityModel;
-import com.proyect.mstemplateep.model.EventType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

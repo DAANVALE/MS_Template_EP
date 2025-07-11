@@ -2,10 +2,6 @@ package com.proyect.mstemplateep.service;
 
 import com.proyect.mstemplateep.model.EventType;
 import com.proyect.mstemplateep.model.Template;
-import com.proyect.mstemplateep.model.ServiceType;
-import com.proyect.mstemplateep.repository.EventTypeRepo;
-import com.proyect.mstemplateep.repository.TemplateRepo;
-import com.proyect.mstemplateep.repository.ServiceTypeRepo;
 import com.proyect.mstemplateep.repository.TemplateRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
