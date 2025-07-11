@@ -35,11 +35,7 @@ public class EventTypeController {
 
     @PostMapping
     public ResponseEntity<EventType> createService(@RequestBody EventType eventType) {
-        try {
-            EventType savedService = eventTypeService.saveEventType(eventType);
-            return ResponseEntity.ok(savedService);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
-        }
+        EventType savedService = eventTypeService.saveEventType(eventType);
+        return ResponseEntity.ok(savedService);
     }
 }

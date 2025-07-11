@@ -1,23 +1,21 @@
 package com.proyect.mstemplateep.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Set;
 
 @Entity
-@Table(name = "event_type")
+@Table(name = "city_model")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class EventType
+public class CityModel
 {
     @Id
     @JsonProperty("id")
@@ -40,7 +38,18 @@ public class EventType
         return id;
     }
 
-    @OneToMany(mappedBy = "eventType", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    // PK foreign key
+    @ManyToMany(targetEntity = ServiceModel.class,
+            mappedBy = "cityModel",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY)
+    private Set<ServiceModel> serviceModels;
+
+    @OneToMany(mappedBy = "cityModel", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // Evita loops infinitos en JSON
     private Set<Template> templates;
+
+    @OneToMany(mappedBy = "cityModel", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // Evita loops infinitos en JSON
+    private Set<Terrace> terrace;
 }

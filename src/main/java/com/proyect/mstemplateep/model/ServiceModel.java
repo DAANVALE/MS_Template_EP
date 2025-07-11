@@ -1,55 +1,54 @@
 package com.proyect.mstemplateep.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "terrace", uniqueConstraints = {@UniqueConstraint(columnNames = "idTerrace_DB")})
+@Table(name = "service", uniqueConstraints = {@UniqueConstraint(columnNames = "idService_DB")})
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class Terrace
+public class ServiceModel
 {
     @Id
     @JsonProperty("id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @JsonProperty("terraceType")
-    @ManyToMany(targetEntity = TerraceType.class,
+    @JsonProperty("serviceType")
+    @ManyToMany(targetEntity = ServiceType.class,
             cascade = CascadeType.ALL )
-    private Set<TerraceType> terraceType;
+    private Set<ServiceType> serviceType;
 
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    @JoinColumn(name = "cityModel", nullable = false)
     @JsonProperty("cityModel")
-    private CityModel cityModel;
+    @ManyToMany(targetEntity = CityModel.class,
+            cascade = CascadeType.ALL )
+    private Set<CityModel> cityModel;
 
     // ID Service BD
-    @JsonProperty("idTerrace_DB")
-    @Column(name = "idTerrace_DB", nullable = false)
-    private Integer idTerrace_DB;
+    @JsonProperty("idService_DB")
+    @Column(name = "idService_DB", nullable = false)
+    private Integer idService_DB;
 
     @JsonProperty("idAsociate_DB")
     @Column(name = "idAsociate_DB", nullable = false)
     private Integer idAsociate_DB;
 
-    // Image Repository
+    // Images Repository
     @ElementCollection
     @CollectionTable(
-            name = "terrace_images",
-            joinColumns = @JoinColumn(name = "id") // Este debe coincidir con el nombre real de tu PK
+            name = "service_images",
+            joinColumns = @JoinColumn(name = "id") // Este debe coincidir con la PK de ServiceModel
     )
     @Column(name = "image_url")
     @JsonProperty("URL_Img")
@@ -68,23 +67,19 @@ public class Terrace
     @Column(name = "price", nullable = false)
     private BigDecimal price;
 
-    @JsonProperty("place")
-    @Column(name = "place", nullable = false)
-    private String place;
-
-    public Set<TerraceType> getTerraceType() {
-        return terraceType;
+    public Set<ServiceType> getServiceType() {
+        return serviceType;
     }
 
-    public void setTerraceType(Set<TerraceType> terraceType) {
-        this.terraceType = terraceType;
+    public void setServiceType(Set<ServiceType> serviceType) {
+        this.serviceType = serviceType;
     }
 
-    public CityModel getCityModel() {
+    public Set<CityModel> getCityModel() {
         return cityModel;
     }
 
-    public void setCityModel(CityModel cityModel) {
+    public void setCityModel(Set<CityModel> cityModel) {
         this.cityModel = cityModel;
     }
 
@@ -96,4 +91,7 @@ public class Terrace
         return URL_Img;
     }
 
+    public Integer getId() {
+        return id;
+    }
 }
