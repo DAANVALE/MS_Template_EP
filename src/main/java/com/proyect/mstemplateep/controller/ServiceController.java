@@ -172,4 +172,26 @@ public class ServiceController {
         if (lastIndex == -1) return "";
         return filename.substring(lastIndex);
     }
+
+    // find extras
+    @GetMapping("/findByTag")
+    public ResponseEntity<List<ServiceModel>> findByTag(@RequestParam String tag) {
+        List<ServiceModel> servicios = serviceService.findByTag(tag);
+        return ResponseEntity.ok(servicios);
+    }
+
+    // Buscar que tenga TODOS los tags
+    @GetMapping("/findByAllTags")
+    public ResponseEntity<List<ServiceModel>> findByAllTags(@RequestParam List<String> tags) {
+        List<ServiceModel> servicios = serviceService.findByAllTags(tags);
+        return ResponseEntity.ok(servicios);
+    }
+
+    // Buscar que tenga AL MENOS UN tag
+    @GetMapping("/findByAnyTag")
+    public ResponseEntity<List<ServiceModel>> findByAnyTag(@RequestParam List<String> tags) {
+        List<ServiceModel> servicios = serviceService.findByAnyTag(tags);
+        return ResponseEntity.ok(servicios);
+    }
+
 }

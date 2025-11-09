@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -71,6 +72,14 @@ public class Terrace
     @JsonProperty("place")
     @Column(name = "place", nullable = false)
     private String place;
+
+    @ElementCollection
+    @CollectionTable(
+            name = "terrace_tags",
+            joinColumns = @JoinColumn(name = "terrace_id")
+    )
+    @Column(name = "tag")
+    private List<String> tags = new ArrayList<>();
 
     public Set<TerraceType> getTerraceType() {
         return terraceType;

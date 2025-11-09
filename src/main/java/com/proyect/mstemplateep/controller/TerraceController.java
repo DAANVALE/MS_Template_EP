@@ -169,4 +169,23 @@ public class TerraceController {
         terraceService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
+
+    // find extras
+    @GetMapping("/findByTag")
+    public ResponseEntity<List<Terrace>> findByTag(@RequestParam String tag) {
+        List<Terrace> terraces = terraceService.findByTag(tag);
+        return ResponseEntity.ok(terraces);
+    }
+
+    @GetMapping("/findByAllTags")
+    public ResponseEntity<List<Terrace>> findByAllTags(@RequestParam List<String> tags) {
+        List<Terrace> terraces = terraceService.findByAllTags(tags);
+        return ResponseEntity.ok(terraces);
+    }
+
+    @GetMapping("/findByAnyTag")
+    public ResponseEntity<List<Terrace>> findByAnyTag(@RequestParam List<String> tags) {
+        List<Terrace> terraces = terraceService.findByAnyTag(tags);
+        return ResponseEntity.ok(terraces);
+    }
 }

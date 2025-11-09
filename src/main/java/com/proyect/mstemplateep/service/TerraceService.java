@@ -1,6 +1,7 @@
 package com.proyect.mstemplateep.service;
 
 import com.proyect.mstemplateep.model.Terrace;
+import com.proyect.mstemplateep.model.Terrace;
 import com.proyect.mstemplateep.model.TerraceType;
 import com.proyect.mstemplateep.repository.TerraceRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -47,5 +49,17 @@ public class TerraceService {
         } else {
             throw new ResourceNotFoundException("Service not found with id " + id);
         }
+    }
+
+    public List<Terrace> findByTag(String tag) {
+        return terraceRepo.findByTag(tag);
+    }
+
+    public List<Terrace> findByAllTags(List<String> tags) {
+        return terraceRepo.findByAllTags(tags, tags.size());
+    }
+
+    public List<Terrace> findByAnyTag(List<String> tags) {
+        return terraceRepo.findByAnyTag(tags);
     }
 }

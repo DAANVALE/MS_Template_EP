@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -66,6 +67,15 @@ public class ServiceModel
     @JsonProperty("price")
     @Column(name = "price", nullable = false)
     private BigDecimal price;
+
+    // Add tags
+    @ElementCollection
+    @CollectionTable(
+            name = "service_tags",
+            joinColumns = @JoinColumn(name = "service_id")
+    )
+    @Column(name = "tag")
+    private List<String> tags = new ArrayList<>();
 
     public Set<ServiceType> getServiceType() {
         return serviceType;
