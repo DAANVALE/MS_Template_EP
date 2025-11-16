@@ -24,7 +24,7 @@ public class Terrace
 {
     @Id
     @JsonProperty("id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @JsonProperty("terraceType")
@@ -78,6 +78,8 @@ public class Terrace
             name = "terrace_tags",
             joinColumns = @JoinColumn(name = "terrace_id")
     )
+
+    @JsonProperty("tags")
     @Column(name = "tag")
     private List<String> tags = new ArrayList<>();
 

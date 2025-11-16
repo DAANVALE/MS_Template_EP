@@ -1,6 +1,5 @@
 package com.proyect.mstemplateep.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
@@ -21,7 +20,7 @@ public class EventType
 {
     @Id
     @JsonProperty("id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @JsonProperty("kind")

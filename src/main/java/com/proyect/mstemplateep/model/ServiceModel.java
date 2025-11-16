@@ -23,7 +23,7 @@ public class ServiceModel
 {
     @Id
     @JsonProperty("id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @JsonProperty("serviceType")
@@ -74,7 +74,9 @@ public class ServiceModel
             name = "service_tags",
             joinColumns = @JoinColumn(name = "service_id")
     )
-    @Column(name = "tag")
+
+    @JsonProperty("tags")
+    @Column(name = "tags")
     private List<String> tags = new ArrayList<>();
 
     public Set<ServiceType> getServiceType() {

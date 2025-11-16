@@ -19,7 +19,7 @@ public class CityModel
 {
     @Id
     @JsonProperty("id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @JsonProperty("kind")
