@@ -27,7 +27,7 @@ public class ServiceType
     private Integer id;
 
     @JsonProperty("kind")
-    @Column(name = "kind", length = 20)
+    @Column(name = "kind", length = 50)
     private String kind;
 
     @JsonProperty("killed")
