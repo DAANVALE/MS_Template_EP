@@ -86,9 +86,6 @@ public class ServiceController {
                     .map(CityModel::getId)
                     .collect(Collectors.toSet());
 
-            System.out.println("🔍 IDs de ServiceType: " + serviceTypeIds);
-            System.out.println("🔍 IDs de CityModel: " + cityModelIds);
-
             // Busca los objetos completos por IDs
             Set<ServiceType> serviceTypes = serviceTypeIds.stream()
                     .map(id -> serviceTypeService.getServiceTypeById(id)

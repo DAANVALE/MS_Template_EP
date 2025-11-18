@@ -41,14 +41,14 @@ public class TerraceType
         this.killed = killed;
     }
 
-    @OneToMany(mappedBy = "terraceType", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "terraceType",
+            fetch = FetchType.LAZY)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // Evita loops infinitos en JSON
     @JsonIgnore
     private Set<Template> templates;
 
     @ManyToMany(targetEntity = Terrace.class,
             mappedBy = "terraceType",
-            cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @JsonIgnore

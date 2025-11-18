@@ -42,17 +42,16 @@ public class CityModel
     // PK foreign key
     @ManyToMany(targetEntity = ServiceModel.class,
             mappedBy = "cityModel",
-            cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<ServiceModel> serviceModels;
 
-    @OneToMany(mappedBy = "cityModel", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "cityModel", fetch = FetchType.LAZY)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // Evita loops infinitos en JSON
     @JsonIgnore
     private Set<Template> templates;
 
-    @OneToMany(mappedBy = "cityModel", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "cityModel", fetch = FetchType.LAZY)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // Evita loops infinitos en JSON
     @JsonIgnore
     private Set<Terrace> terrace;

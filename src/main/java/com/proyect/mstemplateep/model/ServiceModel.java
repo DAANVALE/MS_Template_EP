@@ -27,13 +27,11 @@ public class ServiceModel
     private Integer id;
 
     @JsonProperty("serviceType")
-    @ManyToMany(targetEntity = ServiceType.class,
-            cascade = CascadeType.ALL )
+    @ManyToMany(targetEntity = ServiceType.class)
     private Set<ServiceType> serviceType;
 
     @JsonProperty("cityModel")
-    @ManyToMany(targetEntity = CityModel.class,
-            cascade = CascadeType.ALL )
+    @ManyToMany(targetEntity = CityModel.class)
     private Set<CityModel> cityModel;
 
     // ID Service BD

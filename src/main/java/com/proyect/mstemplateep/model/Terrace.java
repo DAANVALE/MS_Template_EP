@@ -28,8 +28,7 @@ public class Terrace
     private Integer id;
 
     @JsonProperty("terraceType")
-    @ManyToMany(targetEntity = TerraceType.class,
-            cascade = CascadeType.ALL )
+    @ManyToMany(targetEntity = TerraceType.class)
     private Set<TerraceType> terraceType;
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)

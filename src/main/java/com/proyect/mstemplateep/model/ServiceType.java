@@ -37,7 +37,6 @@ public class ServiceType
 
     @ManyToMany(targetEntity = ServiceModel.class,
             mappedBy = "serviceType",
-            cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @JsonIgnore
@@ -45,7 +44,6 @@ public class ServiceType
 
     @ManyToMany(targetEntity = Template.class,
             mappedBy = "serviceType",
-            cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @JsonIgnore
