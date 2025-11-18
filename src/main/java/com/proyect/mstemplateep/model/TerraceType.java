@@ -1,6 +1,7 @@
 package com.proyect.mstemplateep.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
@@ -42,11 +43,14 @@ public class TerraceType
 
     @OneToMany(mappedBy = "terraceType", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // Evita loops infinitos en JSON
+    @JsonIgnore
     private Set<Template> templates;
 
     @ManyToMany(targetEntity = Terrace.class,
             mappedBy = "terraceType",
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonIgnore
     private Set<Terrace> terrace;
 }

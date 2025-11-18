@@ -1,6 +1,7 @@
 package com.proyect.mstemplateep.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
@@ -38,12 +39,16 @@ public class ServiceType
             mappedBy = "serviceType",
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonIgnore
     private Set<ServiceModel> serviceModels;
 
     @ManyToMany(targetEntity = Template.class,
             mappedBy = "serviceType",
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonIgnore
     private Set<Template> templates;
 
     public Integer getId() {

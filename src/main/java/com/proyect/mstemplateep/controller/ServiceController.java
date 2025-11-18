@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -76,28 +77,38 @@ public class ServiceController {
     @PostMapping
     public ResponseEntity<ServiceModel> createService(@RequestBody ServiceModel serviceModel) {
         try {
-            // Mapea los IDs de los ServiceTypes a objetos ServiceType
-            Set<ServiceType> serviceTypes = serviceModel.getServiceType().stream()
-                    .map(serviceType -> serviceTypeService.getServiceTypeById(serviceType.getId())  // Aquí usamos el ID directamente
-                            .orElseThrow(() -> new RuntimeException("ServiceType not found")))
-                    .collect(Collectors.toSet());  // Usamos collect(toSet()) para evitar duplicados
+            // Extrae solo los IDs y busca los objetos completos
+            Set<Integer> serviceTypeIds = serviceModel.getServiceType().stream()
+                    .map(ServiceType::getId)
+                    .collect(Collectors.toSet());
 
-            Set<CityModel> cityModels = serviceModel.getCityModel().stream()
-                    .map(cityType -> cityService.getCityById(cityType.getId())  // Aquí usamos el ID directamente
-                            .orElseThrow(() -> new RuntimeException("City not found")))
-                    .collect(Collectors.toSet());  // Usamos collect(toSet()) para evitar duplicados
+            Set<Integer> cityModelIds = serviceModel.getCityModel().stream()
+                    .map(CityModel::getId)
+                    .collect(Collectors.toSet());
 
+            System.out.println("🔍 IDs de ServiceType: " + serviceTypeIds);
+            System.out.println("🔍 IDs de CityModel: " + cityModelIds);
 
-            // Asocia los ServiceTypes al ServiceModel
+            // Busca los objetos completos por IDs
+            Set<ServiceType> serviceTypes = serviceTypeIds.stream()
+                    .map(id -> serviceTypeService.getServiceTypeById(id)
+                            .orElseThrow(() -> new RuntimeException("ServiceType not found: " + id)))
+                    .collect(Collectors.toSet());
+
+            Set<CityModel> cityModels = cityModelIds.stream()
+                    .map(id -> cityService.getCityById(id)
+                            .orElseThrow(() -> new RuntimeException("City not found: " + id)))
+                    .collect(Collectors.toSet());
+
             serviceModel.setServiceType(serviceTypes);
             serviceModel.setCityModel(cityModels);
-            serviceModel.setURL_Img(serviceModel.getURL_Img());
 
-            // Guarda el ServiceModel
             ServiceModel savedService = serviceService.saveServiceModel(serviceModel);
-
             return ResponseEntity.ok(savedService);
+
         } catch (Exception e) {
+            System.out.println("❌ Error: " + e.getMessage());
+            e.printStackTrace();
             return ResponseEntity.badRequest().build();
         }
     }

@@ -1,5 +1,6 @@
 package com.proyect.mstemplateep.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
@@ -41,5 +42,6 @@ public class EventType
 
     @OneToMany(mappedBy = "eventType", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // Evita loops infinitos en JSON
+    @JsonIgnore
     private Set<Template> templates;
 }

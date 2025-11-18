@@ -1,5 +1,6 @@
 package com.proyect.mstemplateep.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -43,13 +44,16 @@ public class CityModel
             mappedBy = "cityModel",
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
+    @JsonIgnore
     private Set<ServiceModel> serviceModels;
 
     @OneToMany(mappedBy = "cityModel", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // Evita loops infinitos en JSON
+    @JsonIgnore
     private Set<Template> templates;
 
     @OneToMany(mappedBy = "cityModel", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // Evita loops infinitos en JSON
+    @JsonIgnore
     private Set<Terrace> terrace;
 }
